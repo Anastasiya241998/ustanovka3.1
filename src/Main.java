@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Main {
-    static Log log = new Log();
 
+    public static String getLogMessage(String name, String path) {
+        String str = name.equals(" ") ? "по пути" + path + "был создан" : "error";
 
-    public static String getLogMessage(String name, String path, String e) {
-        String s = name.equals("") ? path + "был создан" : " что-то пошло не так и объект" + name.equals("") + "по пути" + path + "не был создан";
+        StringBuilder builder = new StringBuilder(str);
+        builder.append(str);
+        return builder.toString();
 
-        return e.equals("") ? s : s + path;
     }
 
 
@@ -19,9 +20,9 @@ public class Main {
         if (!root.exists()) {
             try {
                 root.mkdir();
-                log.addlog(getLogMessage("", path, ""));
+                getLogMessage(" ", path);
             } catch (Exception e) {
-                log.addlog(getLogMessage("", path, e.getMessage()));
+                getLogMessage("", path);
             }
         }
         for (String a : list) {
@@ -29,17 +30,17 @@ public class Main {
                 File file = new File(path + "//" + a);
                 try {
                     file.createNewFile();
-                    log.addlog(getLogMessage(a, path, ""));
+                    getLogMessage(a, path);
                 } catch (Exception e) {
-                    log.addlog(getLogMessage(a, path, e.getMessage()));
+                    getLogMessage(a, path);
                 }
             } else {
                 File dir = new File(path + "//" + a);
                 try {
                     dir.mkdir();
-                    log.addlog(getLogMessage(dir.getName(), path, ""));
+                    getLogMessage(" ", path);
                 } catch (Exception e) {
-                    log.addlog(getLogMessage(dir.getName(), path, e.getMessage()));
+                    getLogMessage(" ", path);
                 }
             }
         }
@@ -58,11 +59,9 @@ public class Main {
                 "temp.txt"
         )), "C:/Users/Анастасия/Desktop/Games/temp/temp");
 
-        File logger = new File("C:/Users/Анастасия/Desktop/Games/temp/temp.txt");
-        FileWriter fileWriter = new FileWriter(logger);
-        fileWriter.write(log.getLog().toString());
-        fileWriter.flush();
-        fileWriter.close();
+        FileWriter writer = new FileWriter("C:/Users/Анастасия/Desktop/Games/temp/temp.txt");
+        writer.write(getLogMessage());
+
     }
 }
 
